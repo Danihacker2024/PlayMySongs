@@ -1,11 +1,24 @@
 package com.unoeste.playingsongs.entities;
 
 
+import org.bson.types.ObjectId;
+
 public class Music {
+
+
+    private ObjectId id;
     private String title;
     private String artist;
     private String style;
     private String musicFile;
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
     public Music(String title, String artist, String style, String musicFile) {
         this.title = title;
@@ -14,6 +27,12 @@ public class Music {
         this.musicFile = musicFile;
     }
 
+    public Music(String title, String artist, String style) {
+        this.title = title;
+        this.artist = artist;
+        this.style = style;
+        this.musicFile = null;
+    }
 
     public String getTitle() {
         return title;

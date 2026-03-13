@@ -3,6 +3,8 @@ package com.unoeste.playingsongs.controllers;
 import com.unoeste.playingsongs.entities.Erro;
 import com.unoeste.playingsongs.entities.Music;
 import com.unoeste.playingsongs.repositories.MusicRepository;
+import com.unoeste.playingsongs.services.MusicService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,9 @@ import java.util.List;
 @RequestMapping("apis")
 public class MusicRestController {
     private MusicRepository musicRepository;
+    @Autowired
+    private MusicService musicService;
+
     @PostMapping("upload-musics")
     public ResponseEntity<Object> addMusics(String title, String artist, String style, MultipartFile file) {
         //receber o arquivo da musica
@@ -31,15 +36,8 @@ public class MusicRestController {
     @GetMapping("find-musics")
     public ResponseEntity<Object> findMusics(String keyWord) {
         List <Music> lista=new ArrayList<>();
-        for(Music music:lista){
-            if(music.getTitle().toUpperCase().contains(keyWord.toUpperCase())){
-                lista.add(music);
-            }
-        }
-        if(!lista.isEmpty()){
-            return ResponseEntity.ok().body(lista);
-        }
-            return ResponseEntity.badRequest().body(new Erro("Nenhum resultado",""));
+        lista = musicService.findMusicsByKeyWord(keyWord);
+        return ResponseEntity.ok(lista);
     }
 
     @GetMapping("get-music-styles")
