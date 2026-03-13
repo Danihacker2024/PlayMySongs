@@ -1,19 +1,28 @@
 package com.unoeste.playingsongs.entities;
 
+import org.bson.types.ObjectId;
 
 public class Music {
     private String title;
     private String artist;
     private String style;
     private String musicFile;
+    private ObjectId _id;//ainda não funciona, precisa arrumar
 
-    public Music(String title, String artist, String style, String musicFile) {
+    public Music(String title, String artist, String style, ObjectId _id) {
         this.title = title;
         this.artist = artist;
         this.style = style;
-        this.musicFile = musicFile;
+        this._id = _id;
     }
 
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
+    }
 
     public String getTitle() {
         return title;
